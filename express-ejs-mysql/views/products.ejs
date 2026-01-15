@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Product List</title>
+  <style>
+  </style>
+</head>
+<body>
+
+<h2><%= editProduct ? 'Edit Product' : 'Add Product' %></h2>
+<form action="<%= editProduct ? '/update/' + editProduct.id : '/add' %>" method="post">
+  Name: <input name="name" value="<%= editProduct ? editProduct.name : '' %>" required><br>
+  Price: <input name="price" type="number" step="0.01" value="<%= editProduct ? editProduct.price : '' %>" required><br>
+  Quantity: <input name="quantity" type="number" value="<%= editProduct ? editProduct.quantity : '' %>" required><br>
+  <button type="submit" class="<%= editProduct ? 'btn-update' : '' %>">
+    <%= editProduct ? 'Update' : 'Add' %>
+  </button>
+  <% if (editProduct) { %>
+    <a href="/" style="text-decoration: none;">
+      <button type="button" class="btn-cancel">Cancel</button>
+    </a>
+  <% } %>
+</form>
+
+<h2>Products</h2>
+<table border="1">
+  <tr>
+    <th>ID</th><th>Name</th><th>Price</th><th>Quantity</th><th>Actions</th>
+  </tr>
+  <% products.forEach(p => { %>
+    <tr class="<%= editProduct && editProduct.id === p.id ? 'editing' : '' %>">
+      <td><%= p.id %></td>
+      <td><%= p.name %></td>
+      <td><%= p.price %></td>
+      <td><%= p.quantity %></td>
+      <td>
+        <a href="/edit/<%= p.id %>" class="btn-edit">Edit</a>
+        <a href="/delete/<%= p.id %>" class="btn-delete" >Delete</a>
+      </td>
+    </tr>
+  <% }) %>
+</table>
+</body>
+</html>
