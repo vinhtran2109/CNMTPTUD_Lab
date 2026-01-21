@@ -1,11 +1,12 @@
 const mysql = require('mysql2');
 
-// Create connection pool
+// Create connection pool with environment variable support
 const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: '', 
-  database: 'productdb', 
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '', 
+  database: process.env.DB_NAME || 'productdb',
+  port: process.env.DB_PORT || 3306,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0

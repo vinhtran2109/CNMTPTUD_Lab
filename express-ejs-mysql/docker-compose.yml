@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # MySQL Database Service
+  mysql:
+    image: mysql:8.0
+    container_name: shopdb-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: productdb
+      MYSQL_USER: shopuser
+      MYSQL_PASSWORD: shoppassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db/setup.sql:/docker-entrypoint-initdb.d/setup.sql
+    networks:
+      - shopdb-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Node.js Application Service
+  app:
+    build: .
+    container_name: shopdb-app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+      DB_NAME: productdb
+      DB_PORT: 3306
+      SESSION_SECRET: your-secret-key-change-in-production
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - shopdb-network
+    volumes:
+      - ./:/app
+      - /app/node_modules
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  shopdb-network:
+    driver: bridge
