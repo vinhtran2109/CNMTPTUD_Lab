@@ -1,0 +1,29 @@
+[
+  {
+    "id": "sample-001",
+    "name": "Laptop Dell XPS 15",
+    "price": 35000000,
+    "quantity": 15,
+    "url_image": "/uploads/1769042995537-543972320.jfif",
+    "createdAt": "2026-01-20T10:00:00.000Z",
+    "updatedAt": "2026-01-22T00:49:55.538Z"
+  },
+  {
+    "id": "sample-002",
+    "name": "iPhone 15 Pro Max",
+    "price": 32000000,
+    "quantity": 25,
+    "url_image": "/uploads/1769043000225-566405516.jfif",
+    "createdAt": "2026-01-21T11:30:00.000Z",
+    "updatedAt": "2026-01-22T00:50:00.226Z"
+  },
+  {
+    "id": "sample-003",
+    "name": "Samsung Galaxy S24 Ultra",
+    "price": 28000000,
+    "quantity": 30,
+    "url_image": "/uploads/1769043004577-741347986.jfif",
+    "createdAt": "2026-01-22T09:15:00.000Z",
+    "updatedAt": "2026-01-22T00:50:04.578Z"
+  }
+]

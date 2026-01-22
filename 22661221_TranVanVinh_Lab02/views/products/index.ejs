@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Sản Phẩm</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .header-actions {
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        .btn-edit {
+            background: #28a745;
+            color: white;
+            padding: 6px 12px;
+            margin-right: 5px;
+        }
+
+        .btn-edit:hover {
+            background: #218838;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+            padding: 6px 12px;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .product-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+        }
+
+        .no-products {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .delete-form {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quản Lý Sản Phẩm</h1>
+
+        <div class="header-actions">
+            <div>Tổng số: <strong><%= products.length %></strong> sản phẩm</div>
+            <a href="/add" class="btn btn-primary">Thêm Sản Phẩm</a>
+        </div>
+
+        <% if (products.length === 0) { %>
+            <div class="no-products">
+                <p>Chưa có sản phẩm nào. Hãy thêm sản phẩm mới!</p>
+            </div>
+        <% } else { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Hình Ảnh</th>
+                        <th>Tên Sản Phẩm</th>
+                        <th>Giá</th>
+                        <th>Số Lượng</th>
+                        <th>Thao Tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% products.forEach(product => { %>
+                        <tr>                            <td>
+                                <img src="<%= product.url_image %>" 
+                                     alt="<%= product.name %>" 
+                                     class="product-image"
+                                     onerror="this.src='/public/images/no-image.svg'">
+                            </td>
+                            <td><%= product.name %></td>
+                            <td><%= product.price.toLocaleString('vi-VN') %> đ</td>
+                            <td><%= product.quantity %></td>
+                            <td>
+                                <a href="/edit/<%= product.id %>" class="btn btn-edit">Sửa</a>
+                                <form action="/delete/<%= product.id %>" method="POST" class="delete-form" 
+                                      onsubmit="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">
+                                    <button type="submit" class="btn btn-delete">Xóa</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } %>
+    </div>
+</body>
+</html>
