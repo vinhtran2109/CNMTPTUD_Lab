@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Sản Phẩm - Product Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛍️ Quản Lý Sản Phẩm</h1>
+            <p class="subtitle">Product Management System</p>
+        </header>
+
+        <!-- Product Form -->
+        <div class="form-container">
+            <h2 id="form-title">Thêm Sản Phẩm Mới</h2>
+            <form id="product-form" enctype="multipart/form-data">
+                <input type="hidden" id="product-id">
+                
+                <div class="form-group">
+                    <label for="product-name">Tên sản phẩm *</label>
+                    <input type="text" id="product-name" name="name" required placeholder="Nhập tên sản phẩm">
+                </div>
+
+                <div class="form-group">
+                    <label for="product-price">Giá (VNĐ) *</label>
+                    <input type="number" id="product-price" name="price" required placeholder="Nhập giá" min="0" step="1000">
+                </div>
+
+                <div class="form-group">
+                    <label for="product-image">Hình ảnh</label>
+                    <input type="file" id="product-image" name="image" accept="image/*">
+                    <div id="image-preview" class="image-preview"></div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="submit-btn">
+                        <span>➕ Thêm Sản Phẩm</span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="cancel-btn" style="display: none;">
+                        <span>❌ Hủy</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Products List -->
+        <div class="products-section">
+            <div class="section-header">
+                <h2>Danh Sách Sản Phẩm</h2>
+                <span id="product-count" class="count-badge">0 sản phẩm</span>
+            </div>
+            
+            <div id="products-list" class="products-grid">
+                <!-- Products will be loaded here -->
+            </div>
+
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Đang tải...</p>
+            </div>
+
+            <div id="empty-state" class="empty-state" style="display: none;">
+                <div class="empty-icon">📦</div>
+                <h3>Chưa có sản phẩm nào</h3>
+                <p>Hãy thêm sản phẩm đầu tiên của bạn!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="modal">
+        <div class="modal-content">
+            <h3>⚠️ Xác nhận xóa</h3>
+            <p>Bạn có chắc chắn muốn xóa sản phẩm này?</p>
+            <div class="modal-actions">
+                <button class="btn btn-danger" id="confirm-delete">Xóa</button>
+                <button class="btn btn-secondary" id="cancel-delete">Hủy</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
