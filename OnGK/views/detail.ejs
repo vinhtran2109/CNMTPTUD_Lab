@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi tiết sản phẩm</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    .container { min-height: 100vh; display: grid; place-items: center; padding: 12px; }
+    .list-box { width: 100%; max-width: 420px; border: 1px solid #ccc; padding: 14px; }
+    .detail-grid { display: grid; gap: 8px; }
+    .detail-image { max-width: 100%; height: auto; }
+    .actions { margin-top: 8px; display: flex; gap: 8px; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="list-box">
+      <h1>Chi tiết sản phẩm</h1>
+
+      <div class="detail-grid">
+        <div>
+          <% if (product.url_image) { %>
+            <img src="<%= product.url_image %>" alt="<%= product.name %>" class="detail-image" onerror="this.style.display='none'">
+          <% } %>
+        </div>
+        <div>
+          <p><strong>Tên:</strong> <%= product.name %></p>
+          <p><strong>Giá:</strong> <%= parseFloat(product.price).toFixed(2) %></p>
+          <p><strong>Tồn kho:</strong> <%= product.unit_in_stock %></p>
+          <p><strong>ID:</strong> <%= product.id %></p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a href="/edit/<%= product.id %>" class="btn">Sửa</a>
+        <a href="/" class="btn">Quay lại</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
