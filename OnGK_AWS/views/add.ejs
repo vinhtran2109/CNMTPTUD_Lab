@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thêm sản phẩm</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    .container { min-height: 100vh; display: grid; place-items: center; padding: 12px; }
+    .list-box { width: 100%; max-width: 420px; border: 1px solid #ccc; padding: 14px; }
+    .form-box { display: grid; gap: 6px; }
+    input { width: 100%; }
+    .actions { margin-top: 8px; display: flex; gap: 8px; }
+    .error-text { margin: 0 0 6px; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="list-box">
+      <h1>Thêm sản phẩm</h1>
+
+      <% if (typeof error !== 'undefined' && error) { %>
+        <p class="error-text"><%= error %></p>
+      <% } %>
+
+      <form action="/add" method="POST" enctype="multipart/form-data" class="form-box">
+        <label>Tên sản phẩm</label>
+        <input type="text" name="name" required>
+
+        <label>Giá</label>
+        <input type="number" name="price" min="0" step="0.01" required>
+
+        <label>Tồn kho</label>
+        <input type="number" name="unit_in_stock" min="0" required>
+
+        <label>Ảnh</label>
+        <input type="file" name="image" accept="image/*">
+
+        <div class="actions">
+          <button type="submit" class="btn">Lưu</button>
+          <a href="/" class="btn">Hủy</a>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

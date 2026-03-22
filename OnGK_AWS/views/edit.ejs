@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sửa sản phẩm</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    .container { min-height: 100vh; display: grid; place-items: center; padding: 12px; }
+    .list-box { width: 100%; max-width: 420px; border: 1px solid #ccc; padding: 14px; }
+    .form-box { display: grid; gap: 6px; }
+    input { width: 100%; }
+    .detail-image { max-width: 100%; height: auto; }
+    .actions { margin-top: 8px; display: flex; gap: 8px; }
+    .error-text { margin: 0 0 6px; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="list-box">
+      <h1>Sửa sản phẩm</h1>
+
+      <% if (typeof error !== 'undefined' && error) { %>
+        <p class="error-text"><%= error %></p>
+      <% } %>
+
+      <form action="/edit/<%= product.id %>" method="POST" enctype="multipart/form-data" class="form-box">
+        <label>Tên sản phẩm</label>
+        <input type="text" name="name" required value="<%= product.name %>">
+
+        <label>Giá</label>
+        <input type="number" name="price" min="0" step="0.01" required value="<%= product.price %>">
+
+        <label>Tồn kho</label>
+        <input type="number" name="unit_in_stock" min="0" required value="<%= product.unit_in_stock %>">
+
+        <label>Ảnh hiện tại</label>
+        <% if (product.url_image) { %>
+          <p><img src="<%= product.url_image %>" alt="<%= product.name %>" class="detail-image" onerror="this.style.display='none'"></p>
+        <% } else { %>
+          <p>Không có ảnh</p>
+        <% } %>
+
+        <label>Ảnh mới</label>
+        <input type="file" name="image" accept="image/*">
+
+        <div class="actions">
+          <button type="submit" class="btn">Cập nhật</button>
+          <a href="/product/<%= product.id %>" class="btn">Hủy</a>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
